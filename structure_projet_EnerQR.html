@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Structure du Projet EnerQR — Documentation</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;800&family=Fira+Code&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .header-logo {
+      background: rgba(38,196,133,0.15);
+      border: 2px solid rgba(38,196,133,0.3);
+      border-radius: 50%;
+      width: 72px; height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .header h1 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; }
+    .header h1 span { color: #26C485; }
+    .header p { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-top: 6px; }
+    .badge {
+      display: inline-block;
+      background: rgba(38,196,133,0.2);
+      color: #26C485;
+      border: 1px solid rgba(38,196,133,0.3);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    /* SECTION */
+    .section {
+      margin-bottom: 32px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .section-header {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+    }
+    .section-header .icon { font-size: 1.4rem; }
+
+    .bg-backend  { background: linear-gradient(90deg, #1e3a5f, #2563eb); }
+    .bg-frontend { background: linear-gradient(90deg, #134e4a, #0f766e); }
+    .bg-mobile   { background: linear-gradient(90deg, #4c1d95, #7c3aed); }
+    .bg-ai       { background: linear-gradient(90deg, #7c2d12, #ea580c); }
+    .bg-config   { background: linear-gradient(90deg, #374151, #6b7280); }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+    thead tr { background: #f1f5f9; }
+    thead th {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.15s; }
+    tbody tr:hover { background: #f8fafc; }
+    tbody td { padding: 13px 20px; font-size: 0.9rem; vertical-align: top; }
+
+    .file-name {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.82rem;
+      color: #0f172a;
+      background: #f1f5f9;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .file-role { color: #475569; line-height: 1.5; }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .tag-core    { background: #dbeafe; color: #1d4ed8; }
+    .tag-ai      { background: #fef3c7; color: #b45309; }
+    .tag-ui      { background: #d1fae5; color: #065f46; }
+    .tag-config  { background: #f3f4f6; color: #374151; }
+    .tag-routing { background: #ede9fe; color: #5b21b6; }
+    .tag-db      { background: #fee2e2; color: #991b1b; }
+
+    /* LEGEND */
+    .legend {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .legend span { font-size: 0.82rem; font-weight: 600; color: #64748b; margin-right: 6px; }
+
+    /* STATS */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card .num { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 800; }
+    .stat-card .lbl { font-size: 0.8rem; color: #64748b; margin-top: 4px; }
+    .c-blue { color: #2563eb; }
+    .c-green { color: #059669; }
+    .c-purple { color: #7c3aed; }
+    .c-orange { color: #ea580c; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    @media print {
+      body { padding: 20px; background: white; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo">⚡</div>
+    <div>
+      <h1><span>Ener</span>QR — Structure du Projet</h1>
+      <p>Documentation technique complète de l'architecture et des fichiers sources</p>
+      <span class="badge">📅 PFE 2025–2026</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-card"><div class="num c-blue">14</div><div class="lbl">Fichiers Backend</div></div>
+    <div class="stat-card"><div class="num c-green">10</div><div class="lbl">Fichiers Frontend</div></div>
+    <div class="stat-card"><div class="num c-purple">6</div><div class="lbl">Fichiers Mobile</div></div>
+    <div class="stat-card"><div class="num c-orange">3</div><div class="lbl">Modules IA</div></div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <span>Légende :</span>
+    <span class="tag tag-core">Core</span>
+    <span class="tag tag-ai">Intelligence Artificielle</span>
+    <span class="tag tag-ui">Interface Utilisateur</span>
+    <span class="tag tag-routing">Routing / Navigation</span>
+    <span class="tag tag-db">Base de Données</span>
+    <span class="tag tag-config">Configuration</span>
+  </div>
+
+  <!-- ===== BACKEND ===== -->
+  <div class="section">
+    <div class="section-header bg-backend">
+      <span class="icon">🐍</span> Backend — Python / FastAPI
+      <span style="margin-left:auto;font-size:0.8rem;opacity:0.7;">enerqr-backend/</span>
+    </div>
+    <table>
+      <thead><tr><th>Fichier</th><th>Type</th><th>Rôle & Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="file-name">main.py</span></td>
+          <td><span class="tag tag-core">Core</span></td>
+          <td class="file-role">Cœur de l'API REST. Contient tous les endpoints FastAPI : authentification (/auth/login, /auth/register), gestion des clients, techniciens, anomalies, garanties, factures et le routing IA.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">models.py</span></td>
+          <td><span class="tag tag-db">Base de Données</span></td>
+          <td class="file-role">Définit les modèles SQLAlchemy (ORM). Tables : Users, Pumps, Anomaly, Garantie, Facture, ScanLog. Chaque classe Python correspond à une table SQL automatiquement créée.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">database.py</span></td>
+          <td><span class="tag tag-db">Base de Données</span></td>
+          <td class="file-role">Configuration du moteur SQLite. Crée la session de base de données et le binding engine. Fournit la dépendance <code>get_db()</code> pour les endpoints FastAPI.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">schemas.py</span></td>
+          <td><span class="tag tag-core">Core</span></td>
+          <td class="file-role">Schémas Pydantic pour la validation des données entrantes et sortantes. Définit UserCreate, UserResponse, StatsResponse, AnomalyCreate, FactureUpdate, etc.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">migrate.py</span></td>
+          <td><span class="tag tag-db">Base de Données</span></td>
+          <td class="file-role">Script de migration manuelle de la base de données. Ajoute ou modifie des colonnes dans les tables existantes sans perdre les données (ALTER TABLE).</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">seed_db.py</span></td>
+          <td><span class="tag tag-db">Base de Données</span></td>
+          <td class="file-role">Script de peuplement de la base de données avec des données de test (clients fictifs, pompes, anomalies) pour faciliter les démonstrations.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">check_db.py</span></td>
+          <td><span class="tag tag-config">Configuration</span></td>
+          <td class="file-role">Script utilitaire pour inspecter et vérifier le contenu de la base de données SQLite directement depuis le terminal.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">requirements.txt</span></td>
+          <td><span class="tag tag-config">Configuration</span></td>
+          <td class="file-role">Liste des dépendances Python : FastAPI, SQLAlchemy, Pydantic, NumPy, Scikit-learn, Uvicorn, HTTPX. Utilisé par <code>pip install -r requirements.txt</code>.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">test_ollama.py</span></td>
+          <td><span class="tag tag-ai">IA</span></td>
+          <td class="file-role">Script de test pour vérifier la connexion avec le modèle Ollama/Mistral local. Envoie un message de test et affiche la réponse du LLM.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">enerqr_v3.db</span></td>
+          <td><span class="tag tag-db">Base de Données</span></td>
+          <td class="file-role">Fichier SQLite principal de l'application (base de données active). Contient toutes les données réelles : utilisateurs, pompes, anomalies, garanties et factures.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== AI MODULES ===== -->
+  <div class="section">
+    <div class="section-header bg-ai">
+      <span class="icon">🤖</span> Modules IA — enerqr_ai/
+      <span style="margin-left:auto;font-size:0.8rem;opacity:0.7;">enerqr-backend/enerqr_ai/</span>
+    </div>
+    <table>
+      <thead><tr><th>Fichier</th><th>Type</th><th>Rôle & Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="file-name">prediction.py</span></td>
+          <td><span class="tag tag-ai">IA</span></td>
+          <td class="file-role">Algorithme de prédiction de consommation hebdomadaire (S+1 à S+4). Prend en compte la zone climatique du client (H1/H2/H3) et la saison actuelle pour calculer un multiplicateur saisonnier réaliste.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">anomaly.py</span></td>
+          <td><span class="tag tag-ai">IA</span></td>
+          <td class="file-role">Algorithme de détection d'anomalies (surconsommation). Compare conso_avant vs conso_après avec un ratio de décision (seuil 0.8). Génère automatiquement une alerte si anomalie détectée.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">chat.py</span></td>
+          <td><span class="tag tag-ai">IA</span></td>
+          <td class="file-role">Module chatbot intelligent intégrant Ollama (modèle Mistral local). Interprète les questions du client sur sa pompe à chaleur et génère des réponses contextualisées.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== FRONTEND ===== -->
+  <div class="section">
+    <div class="section-header bg-frontend">
+      <span class="icon">⚛️</span> Frontend Web — React.js / Vite
+      <span style="margin-left:auto;font-size:0.8rem;opacity:0.7;">enerqr-frontend/src/</span>
+    </div>
+    <table>
+      <thead><tr><th>Fichier</th><th>Type</th><th>Rôle & Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="file-name">App.jsx</span></td>
+          <td><span class="tag tag-routing">Routing</span></td>
+          <td class="file-role">Routeur principal de l'application (React Router DOM). Définit toutes les routes : /, /auth, /admin, /dashboard/:id, /activate/:id, /scan. Point d'entrée de toute la navigation.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">api.js</span></td>
+          <td><span class="tag tag-core">Core</span></td>
+          <td class="file-role">Fichier de configuration centralisée de l'URL du backend (API_BASE_URL). Permet de changer l'adresse du serveur en un seul endroit pour toute l'application.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">AuthPage.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Page d'authentification unifiée (Connexion + Inscription). Design Glassmorphism. Gère les 3 rôles (Client, Technicien, Admin) avec champs conditionnels et routing intelligent post-login.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">AdminDashboard.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Dashboard principal pour Admin et Technicien. Interface CRUD complète : gestion clients, pompes, anomalies (3 niveaux), garanties, factures, techniciens. Graphiques Recharts et génération QR Code.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">DashboardClient.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Espace personnel du client. Affiche KPIs (économies, consommation), graphique IA de prédiction 4 semaines (Recharts AreaChart), technicien responsable et chatbot Ollama intégré.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">ActivationPage.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Page d'activation RGPD. Affichée lors du premier scan QR ou après inscription. Le client doit accepter les conditions de confidentialité avant d'accéder à son dashboard.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">ScanRedirect.jsx</span></td>
+          <td><span class="tag tag-routing">Routing</span></td>
+          <td class="file-role">Page de redirection intelligente après scan QR. Interroge l'API pour identifier la pompe et son propriétaire, puis redirige vers l'activation (si premier scan) ou le dashboard client.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">HomePage.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Page d'accueil publique du site. Présente le projet EnerQR, les fonctionnalités clés et le call-to-action vers l'authentification.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">App.css</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Styles globaux de l'application : système de design tokens (variables CSS), effets Glassmorphism, animations fade-in, composants glass-card, dark/light mode.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">index.css</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Reset CSS et styles de base. Définit les polices Google Fonts (Inter, Outfit), les variables de couleurs primaires et les styles des éléments HTML fondamentaux.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== MOBILE ===== -->
+  <div class="section">
+    <div class="section-header bg-mobile">
+      <span class="icon">📱</span> Application Mobile — Flutter / Dart
+      <span style="margin-left:auto;font-size:0.8rem;opacity:0.7;">enerqr_mobile/lib/</span>
+    </div>
+    <table>
+      <thead><tr><th>Fichier</th><th>Type</th><th>Rôle & Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="file-name">main.dart</span></td>
+          <td><span class="tag tag-core">Core</span></td>
+          <td class="file-role">Point d'entrée de l'application Flutter. Configure le MaterialApp, le thème global et lance le LoginScreen comme écran initial.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">api/api_service.dart</span></td>
+          <td><span class="tag tag-core">Core</span></td>
+          <td class="file-role">Service API centralisé. Contient toutes les fonctions HTTP (login, register, getStats, getAIPrediction, getAllClients, etc.). Configure l'URL du backend (IP configurable selon réseau WiFi).</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">screens/login.dart</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Écran d'authentification mobile (Connexion + Inscription). Design dark Glassmorphism avec sélecteur de rôle. Routing intelligent post-login avec gestion du consentement RGPD.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">screens/unified_dashboard.dart</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Dashboard unifié multi-rôles. Affiche dynamiquement l'interface Admin, Technicien ou Client selon le rôle connecté. Inclut statistiques réelles API, KPIs client, prédiction IA et gestion anomalies.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">screens/dashboard.dart</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Dashboard client simplifié (version initiale). Affiche les économies réalisées et les informations de base de la pompe à chaleur.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">screens/technician_dashboard.dart</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Dashboard spécialisé technicien (version initiale). Permet de voir et gérer les clients assignés, modifier les données de consommation et consulter les anomalies détectées.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== COMPONENTS & CONFIG ===== -->
+  <div class="section">
+    <div class="section-header" style="background:linear-gradient(90deg,#064e3b,#065f46);">
+      <span class="icon">🧩</span> Composants Réutilisables — React Components
+      <span style="margin-left:auto;font-size:0.8rem;opacity:0.7;">enerqr-frontend/src/components/</span>
+    </div>
+    <table>
+      <thead><tr><th>Fichier</th><th>Type</th><th>Rôle &amp; Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="file-name">ThemeToggle.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Bouton de basculement Dark/Light Mode. Persiste la préférence dans le <code>localStorage</code> et détecte automatiquement la préférence système (prefers-color-scheme).</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">ThemeToggle.css</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Styles dédiés au bouton de thème : effet Glassmorphism, hover animation translateY, responsive mobile (position et taille adaptées).</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">RobotAssistant.jsx</span></td>
+          <td><span class="tag tag-ui">UI</span></td>
+          <td class="file-role">Composant visuel de l'assistant IA sous forme de robot animé. Affiche une image PNG avec un effet de glow et déclenche un message d'interaction au clic.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== CONFIG FILES ===== -->
+  <div class="section">
+    <div class="section-header" style="background:linear-gradient(90deg,#1c1917,#44403c);">
+      <span class="icon">⚙️</span> Fichiers de Configuration Projet
+      <span style="margin-left:auto;font-size:0.8rem;opacity:0.7;">Racine des sous-projets</span>
+    </div>
+    <table>
+      <thead><tr><th>Fichier</th><th>Projet</th><th>Rôle &amp; Description</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="file-name">main.jsx</span></td>
+          <td><span class="tag tag-core">Frontend</span></td>
+          <td class="file-role">Point d'entrée React. Monte l'application dans le DOM via <code>createRoot</code>. Enveloppe l'app dans <code>StrictMode</code> pour détecter les problèmes potentiels en développement.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">index.html</span></td>
+          <td><span class="tag tag-core">Frontend</span></td>
+          <td class="file-role">Template HTML racine de Vite. Contient le <code>&lt;div id="root"&gt;</code> dans lequel React injecte toute l'application. Point d'entrée du build.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">vite.config.js</span></td>
+          <td><span class="tag tag-config">Config</span></td>
+          <td class="file-role">Configuration du bundler Vite : active le plugin React (JSX transform), configure le serveur de développement. Optimise le build de production.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">package.json</span></td>
+          <td><span class="tag tag-config">Config</span></td>
+          <td class="file-role">Manifeste npm du projet frontend. Liste les dépendances (React 19, Recharts, Lucide, QRCode.react, React Router DOM) et les scripts dev/build/preview.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">pubspec.yaml</span></td>
+          <td><span class="tag tag-config">Config</span></td>
+          <td class="file-role">Manifeste Flutter/Dart (équivalent de package.json). Déclare les dépendances mobile : http, shared_preferences, google_fonts. Définit le nom et la version de l'app.</td>
+        </tr>
+        <tr>
+          <td><span class="file-name">assets/hero.png</span></td>
+          <td><span class="tag tag-ui">Asset</span></td>
+          <td class="file-role">Image principale de la page d'accueil. Illustration visuelle représentant le concept EnerQR (pompe à chaleur intelligente connectée).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ARCHITECTURE SUMMARY -->
+  <div style="background:white;border:1px solid #e2e8f0;border-radius:14px;padding:28px;margin-bottom:28px;">
+    <h2 style="font-family:'Outfit',sans-serif;margin-bottom:20px;color:#0f172a;">🏗️ Architecture Globale</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:#059669;margin-bottom:8px;">✅ Points Forts Techniques</div>
+        <ul style="color:#374151;font-size:0.88rem;line-height:1.8;padding-left:16px;">
+          <li>Architecture découplée (REST API)</li>
+          <li>Multi-plateforme (Web + Mobile)</li>
+          <li>IA intégrée (Prédiction + Anomalies + Chatbot)</li>
+          <li>Sécurité QR Code avec UUID</li>
+          <li>Conformité RGPD (consentement)</li>
+          <li>Load Balancing techniciens auto</li>
+        </ul>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px;">
+        <div style="font-weight:700;color:#1d4ed8;margin-bottom:8px;">🔧 Stack Technologique</div>
+        <ul style="color:#374151;font-size:0.88rem;line-height:1.8;padding-left:16px;">
+          <li><strong>Backend :</strong> Python + FastAPI + SQLAlchemy</li>
+          <li><strong>Base de données :</strong> SQLite (ORM)</li>
+          <li><strong>Frontend :</strong> React.js + Vite + Recharts</li>
+          <li><strong>Mobile :</strong> Flutter + Dart</li>
+          <li><strong>IA :</strong> Ollama (Mistral) + NumPy</li>
+          <li><strong>Design :</strong> Glassmorphism + CSS Tokens</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>📄 Document généré automatiquement — Projet EnerQR | PFE 2025–2026</p>
+    <p style="margin-top:4px;">Pour imprimer en PDF : Ctrl+P → Enregistrer en PDF</p>
+  </div>
+
+</body>
+</html>

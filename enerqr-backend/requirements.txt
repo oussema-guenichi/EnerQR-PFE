@@ -1,0 +1,15 @@
+# ============================================================
+# FICHIER : requirements.txt
+# RÔLE : Liste des dépendances Python du projet
+# Pour installer : pip install -r requirements.txt
+# ============================================================
+
+fastapi[standard]>=0.110.0    # Framework web pour créer l'API REST
+sqlalchemy>=2.0.29            # ORM pour interagir avec la base de données SQLite
+pydantic>=2.7.0               # Validation des données entrantes/sortantes
+numpy>=1.26.0                 # Calculs numériques (utilisé par les modules IA)
+scikit-learn>=1.4.0           # Librairie de Machine Learning (détection d'anomalies + prédictions)
+httpx>=0.27.0                 # Client HTTP asynchrone (tests et requêtes internes)
+uvicorn>=0.29.0               # Serveur ASGI pour lancer FastAPI
+python-dotenv>=1.0.1          # Charger les variables d'environnement depuis un fichier .env
+reportlab>=4.1.0              # Génération de factures PDF professionnelles

@@ -1,0 +1,46 @@
+# =========================
+# GLOBAL GITIGNORE ENERQR
+# =========================
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python / Backend
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.env
+
+# React / Frontend
+enerqr-frontend/node_modules/
+enerqr-frontend/build/
+enerqr-frontend/dist/
+enerqr-frontend/.env
+
+# Flutter / Mobile
+enerqr_mobile/.dart_tool/
+enerqr_mobile/build/
+enerqr_mobile/.flutter-plugins
+enerqr_mobile/.flutter-plugins-dependencies
+enerqr_mobile/.pub-cache/
+enerqr_mobile/.pub/
+
+# Documents générés
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz

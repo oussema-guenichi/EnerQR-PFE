@@ -1,0 +1,305 @@
+\documentclass[12pt, a4paper, twoside]{report}
+
+% ==============================
+% PACKAGES
+% ==============================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel} % French language
+\usepackage[margin=2.5cm]{geometry} % Page margins
+\usepackage{graphicx} % For images
+\usepackage{xcolor} % Custom colors
+\usepackage{hyperref} % Clickable links
+\usepackage{fancyhdr} % Custom headers and footers
+\usepackage{titlesec} % Custom chapter/section titles
+\usepackage{listings} % For code snippets
+\usepackage{tikz} % For drawing architectures
+\usepackage{float} % Image positioning
+\usepackage{enumitem} % Better lists
+\usepackage{lmodern} % Modern font
+\usepackage{microtype} % Typography improvements
+
+% ==============================
+% CUSTOM COLORS (EnerQR Theme)
+% ==============================
+\definecolor{EnerQRGreen}{HTML}{26C485}
+\definecolor{EnerQRDarkBlue}{HTML}{0F172A}
+\definecolor{EnerQRGray}{HTML}{F1F5F9}
+\definecolor{CodeBg}{HTML}{1E1E1E}
+
+% ==============================
+% HYPERREF SETUP
+% ==============================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=EnerQRDarkBlue,
+    filecolor=magenta,      
+    urlcolor=EnerQRGreen,
+    citecolor=EnerQRDarkBlue,
+    pdftitle={Rapport PFE - EnerQR},
+}
+
+% ==============================
+% CUSTOM HEADERS & FOOTERS
+% ==============================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\textcolor{gray}{\nouppercase{\rightmark}}}
+\fancyhead[LO,RE]{\textcolor{gray}{\nouppercase{\leftmark}}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ==============================
+% CUSTOM CHAPTER STYLES
+% ==============================
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{EnerQRDarkBlue}\Huge}
+  {\filleft\Large\chaptertitlename\ \Huge\thechapter}
+  {4ex}
+  {\titlerule\vspace{2ex}\filcenter}
+  [\vspace{2ex}\titlerule]
+
+% ==============================
+% LISTINGS SETUP (Code Snippets)
+% ==============================
+\lstset{
+    backgroundcolor=\color{EnerQRGray},
+    commentstyle=\color{gray},
+    keywordstyle=\color{EnerQRGreen}\bfseries,
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+% ==============================
+% DOCUMENT START
+% ==============================
+\begin{document}
+
+% ------------------------------
+% PAGE DE GARDE (COVER PAGE)
+% ------------------------------
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        \Large \textbf{RÉPUBLIQUE TUNISIENNE}\\
+        \Large \textbf{MINISTÈRE DE L'ENSEIGNEMENT SUPÉRIEUR ET DE LA RECHERCHE SCIENTIFIQUE}\\
+        
+        \vspace{1.5cm}
+        
+        % Logo of the university (replace with real logo)
+        % \includegraphics[width=0.4\textwidth]{images/logo_univ.png}
+        \rule{0.4\textwidth}{0.4pt} % Placeholder line if no logo
+        
+        \vspace{2cm}
+        
+        \Large \textit{Mémoire de Projet de Fin d'Études}\\
+        \normalsize En vue de l'obtention du diplôme de\\
+        \textbf{Licence / Master en Informatique} (À préciser)
+        
+        \vspace{2cm}
+        
+        \rule{\linewidth}{0.5mm} \\[0.4cm]
+        {\huge \bfseries \textcolor{EnerQRDarkBlue}{Ener}\textcolor{EnerQRGreen}{QR}} \\[0.4cm]
+        {\Large \textbf{Plateforme Intelligente multi-supports pour la gestion, la maintenance prédictive et le suivi des Pompes à Chaleur}} \\[0.4cm]
+        \rule{\linewidth}{0.5mm}
+        
+        \vspace{2cm}
+        
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushleft} \large
+                \emph{Élaboré par :}\\
+                \textbf{Votre Nom et Prénom}
+            \end{flushleft}
+        \end{minipage}
+        ~
+        \begin{minipage}{0.4\textwidth}
+            \begin{flushright} \large
+                \emph{Encadré par :}\\
+                \textbf{Nom de l'Encadrant}
+            \end{flushright}
+        \end{minipage}
+        
+        \vfill
+        
+        \large \textbf{Année Universitaire : 2025 - 2026}
+        
+    \end{center}
+\end{titlepage}
+
+% ------------------------------
+% DÉDICACES & REMERCIEMENTS
+% ------------------------------
+\chapter*{Dédicaces}
+\addcontentsline{toc}{chapter}{Dédicaces}
+Je dédie ce travail à mes parents pour leur soutien inconditionnel...
+
+\chapter*{Remerciements}
+\addcontentsline{toc}{chapter}{Remerciements}
+Je tiens à remercier mon encadrant pour son orientation et ses conseils précieux tout au long de ce projet...
+
+% ------------------------------
+% RÉSUMÉ & ABSTRACT
+% ------------------------------
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+Le projet \textbf{EnerQR} est une plateforme complète (Web et Mobile) conçue pour révolutionner la gestion des pompes à chaleur. En combinant la technologie QR Code pour l'identification rapide des équipements et l'Intelligence Artificielle (LLM locaux et algorithmes prédictifs) pour la détection d'anomalies, cette solution offre une maintenance proactive et un suivi transparent pour les clients et les techniciens.\\
+\textbf{Mots-clés :} Pompe à chaleur, IA, QR Code, FastAPI, React.js, Flutter, Ollama, Maintenance prédictive.
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+The \textbf{EnerQR} project is a comprehensive platform (Web and Mobile) designed to revolutionize heat pump management. By combining QR Code technology for rapid equipment identification and Artificial Intelligence (local LLMs and predictive algorithms) for anomaly detection, this solution provides proactive maintenance and transparent monitoring for clients and technicians.\\
+\textbf{Keywords:} Heat pump, AI, QR Code, FastAPI, React.js, Flutter, Ollama, Predictive maintenance.
+
+% ------------------------------
+% TABLES OF CONTENTS
+% ------------------------------
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ==============================
+% INTRODUCTION GÉNÉRALE
+% ==============================
+\chapter{Introduction Générale}
+\section{Contexte du Projet}
+Dans un contexte de transition énergétique, l'optimisation de la consommation électrique et la maintenance des équipements thermiques tels que les pompes à chaleur sont devenues des priorités absolues. Les méthodes traditionnelles de maintenance manquent de proactivité et de traçabilité.
+
+\section{Problématique}
+Actuellement, la gestion des pompes à chaleur souffre de plusieurs lacunes :
+\begin{itemize}
+    \item Une difficulté d'identification rapide de l'historique d'une machine.
+    \item Une absence de détection automatique des anomalies (surconsommation).
+    \item Un manque de visibilité pour le client sur ses économies réelles.
+\end{itemize}
+
+\section{Objectifs et Solutions proposées}
+Pour pallier ces limites, nous proposons \textbf{EnerQR}, une plateforme intelligente qui s'articule autour de trois axes :
+\begin{enumerate}
+    \item \textbf{Identification instantanée} via le scan de QR Codes uniques.
+    \item \textbf{Intelligence Artificielle} pour la prédiction de consommation et la détection des anomalies.
+    \item \textbf{Accessibilité Multi-Plateforme} à travers une application Web (React.js) et une application Mobile (Flutter).
+\end{enumerate}
+
+% ==============================
+% ÉTAT DE L'ART ET TECHNOLOGIES
+% ==============================
+\chapter{État de l'art et Choix Technologiques}
+
+\section{Analyse de l'existant}
+Étude des solutions existantes sur le marché de la domotique et de la maintenance industrielle, et mise en évidence de leurs limites (coût élevé, manque d'IA embarquée, interfaces complexes).
+
+\section{Choix Technologiques}
+L'architecture de la plateforme repose sur des technologies modernes, performantes et scalables :
+
+\subsection{Le Backend : Python \& FastAPI}
+FastAPI a été choisi pour sa rapidité (basé sur Starlette), sa validation automatique des données via Pydantic et sa génération automatique de documentation (Swagger UI).
+La base de données relationnelle est gérée par \textbf{SQLite} via l'ORM \textbf{SQLAlchemy}.
+
+\subsection{Le Frontend Web : React.js \& Vite}
+React.js offre une architecture basée sur les composants. Le bundler \textbf{Vite} assure une compilation ultra-rapide. Le design utilise un style "Glassmorphism" moderne.
+
+\subsection{L'Application Mobile : Flutter}
+Le framework Flutter (Dart) a permis de développer une application cross-platform (Android/iOS) performante avec un code source unique, offrant un dashboard unifié multi-rôles.
+
+\subsection{L'Intelligence Artificielle}
+\begin{itemize}
+    \item \textbf{Algorithmes prédictifs :} Utilisation de règles métier et statistiques pour prédire la consommation (S+1 à S+4) selon les zones climatiques (H1, H2, H3).
+    \item \textbf{Ollama \& Mistral :} Intégration d'un LLM local pour fournir un assistant virtuel (chatbot) capable de répondre aux questions techniques des clients en toute sécurité.
+\end{itemize}
+
+% ==============================
+% CONCEPTION & ARCHITECTURE
+% ==============================
+\chapter{Conception de la Plateforme EnerQR}
+
+\section{Architecture Globale}
+L'application adopte une architecture \textit{N-Tiers} ou découplée :
+\begin{enumerate}
+    \item \textbf{Couche Présentation :} Web (React) et Mobile (Flutter).
+    \item \textbf{Couche Métier (API) :} Backend FastAPI exposant les endpoints REST.
+    \item \textbf{Couche Données \& IA :} Base SQLite et Scripts Python de prédiction.
+\end{enumerate}
+
+\section{Diagrammes UML}
+\subsection{Diagramme de Cas d'Utilisation}
+Description des acteurs (Client, Technicien, Administrateur) et de leurs interactions avec le système (Scanner QR, Gérer Anomalies, Consulter Prédictions).
+
+\subsection{Diagramme de Classes}
+Modélisation de la base de données : entités \texttt{User}, \texttt{Pump}, \texttt{Anomaly}, \texttt{Garantie}.
+
+\section{Conception de l'Interface (UI/UX)}
+Adoption d'un design \textit{Dark Mode / Glassmorphism} combinant le bleu profond et le vert (\#26C485) pour inspirer la modernité et l'écologie.
+
+% ==============================
+% RÉALISATION & IMPLÉMENTATION
+% ==============================
+\chapter{Réalisation et Implémentation}
+
+\section{Environnement de Développement}
+Mise en place de l'environnement : VS Code, Git, Environnement virtuel Python, Node.js.
+
+\section{Développement du Backend}
+Création de l'API REST sécurisée avec des middlewares CORS et implémentation du système de \textit{Load Balancing} pour l'assignation intelligente des techniciens (le technicien ayant le moins de clients est priorisé).
+
+\begin{lstlisting}[language=Python, caption=Extrait du Load Balancing dans FastAPI]
+# Assignation automatique via Load Balancing
+tech_with_min_clients = min(
+    all_techs,
+    key=lambda t: db.query(models.User).filter(
+        models.User.technicien_id == t.id,
+        models.User.role == "client"
+    ).count()
+)
+assigned_tech_id = tech_with_min_clients.id
+\end{lstlisting}
+
+\section{Développement Frontend Web}
+Implémentation des tableaux de bord et des graphiques interactifs en utilisant \textbf{Recharts}.
+Création du flux d'activation RGPD.
+
+\section{Développement Mobile (Flutter)}
+Création d'un \texttt{UnifiedDashboardScreen} qui s'adapte dynamiquement au rôle de l'utilisateur connecté, récupérant les statistiques réelles (économies, prédictions) via \texttt{ApiService}.
+
+\section{Intégration de l'Intelligence Artificielle}
+Développement du module \texttt{enerqr\_ai} comprenant la détection d'anomalies sur 3 niveaux (Faible, Moyen, Critique) et l'intégration de requêtes asynchrones vers l'API locale d'Ollama.
+
+% ==============================
+% CONCLUSION ET PERSPECTIVES    
+% ==============================
+\chapter{Conclusion Générale et Perspectives}
+Ce projet a permis la conception et le développement complet d'une solution numérique innovante pour le secteur thermique. \textbf{EnerQR} connecte intelligemment l'équipement, le client et le technicien grâce à l'IA et aux QR Codes.
+
+\section*{Perspectives}
+Bien que le système actuel soit fonctionnel et performant, plusieurs évolutions sont envisageables :
+\begin{itemize}
+    \item \textbf{IoT et Temps Réel :} Intégration de capteurs physiques sur les pompes pour remonter la consommation réelle en direct au lieu d'estimations.
+    \item \textbf{Machine Learning Avancé :} Entraînement de modèles de Deep Learning (LSTM) sur de grandes séries temporelles pour affiner les prédictions.
+    \item \textbf{Déploiement Cloud :} Migration de la base SQLite vers PostgreSQL et hébergement sur des plateformes comme AWS ou Azure.
+\end{itemize}
+
+% ==============================
+% BIBLIOGRAPHIE
+% ==============================
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Bibliographie}
+\bibitem{fastapi} Documentation officielle de FastAPI. \url{https://fastapi.tiangolo.com/}
+\bibitem{react} Documentation de React.js. \url{https://react.dev/}
+\bibitem{flutter} Documentation de Flutter. \url{https://flutter.dev/}
+\bibitem{ollama} Ollama : Get up and running with Llama 3, Mistral, and other large language models locally. \url{https://ollama.com/}
+\bibitem{sqlalchemy} SQLAlchemy : The Python SQL Toolkit and Object Relational Mapper. \url{https://www.sqlalchemy.org/}
+\end{thebibliography}
+
+\end{document}

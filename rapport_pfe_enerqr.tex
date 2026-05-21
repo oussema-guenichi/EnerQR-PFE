@@ -1,0 +1,379 @@
+\documentclass[12pt,a4paper]{report}
+
+% Packages indispensables
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{color}
+\usepackage{setspace}
+
+% Configuration de la page
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\onehalfspacing
+
+% Couleurs pour les liens
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Rapport PFE - EnerQR},
+}
+
+% Style des chapitres
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-20pt}{20pt}
+
+\begin{document}
+
+% ==========================================
+% PAGE DE GARDE (Simplifiée à personnaliser)
+% ==========================================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\scshape\LARGE Rapport de Projet de Fin d'Études \par}
+    \vspace{1.5cm}
+    {\huge\bfseries Conception et réalisation d'un système intelligent multi-plateforme de gestion énergétique : EnerQR\par}
+    \vspace{2cm}
+    {\Large Présenté par : \textbf{[Ton Nom]}\par}
+    \vspace{1cm}
+    {\large Encadré par : \textbf{[Nom de l'encadrant]}\par}
+    \vfill
+    {\large Année Universitaire : 2023 / 2024 \par}
+\end{titlepage}
+
+% ==========================================
+% REMERCIEMENTS & DÉDICACES (Optionnels)
+% ==========================================
+\chapter*{Remerciements}
+\addcontentsline{toc}{chapter}{Remerciements}
+Je tiens à exprimer ma profonde gratitude à mon encadrant, [Nom de l'encadrant], pour son suivi, ses conseils précieux et son soutien tout au long de ce projet de fin d'études. Je remercie également les membres du jury d'avoir accepté d'évaluer ce travail. Enfin, un grand merci à ma famille et à mes amis pour leur encouragement continu.
+
+\tableofcontents
+\listoffigures
+
+% ==========================================
+% INTRODUCTION GÉNÉRALE
+% ==========================================
+\chapter*{Introduction générale}
+\addcontentsline{toc}{chapter}{Introduction générale}
+
+À l'heure où les préoccupations environnementales et la transition énergétique sont au cœur des enjeux mondiaux, l'optimisation de la consommation électrique est devenue une nécessité absolue. Le secteur du bâtiment, grand consommateur d'énergie, subit une mutation profonde avec le remplacement progressif des chauffages fossiles par des systèmes éco-responsables, en particulier les pompes à chaleur (PAC). Bien que ces équipements offrent un rendement exceptionnel, leur gestion quotidienne, leur maintenance et le suivi de leur efficacité restent souvent opaques pour les utilisateurs finaux.
+
+Face à ces constats, nous avons initié le projet \textbf{EnerQR}, une solution technologique novatrice qui allie le développement web, mobile et l'Intelligence Artificielle. Notre objectif principal est de concevoir un écosystème numérique centralisé permettant aux clients de surveiller intelligemment leur consommation, aux techniciens d'intervenir rapidement grâce à une maintenance prédictive, et aux administrateurs de superviser l'ensemble du parc énergétique de manière fluide.
+
+Ce rapport détaille les différentes étapes de conception et de réalisation de cette plateforme. Il s'articule autour de trois chapitres principaux :
+\begin{itemize}
+    \item \textbf{Le Chapitre 1} pose le cadre général du projet, analyse l'existant, met en évidence la problématique et présente notre approche méthodologique.
+    \item \textbf{Le Chapitre 2} est consacré à l'analyse et à la spécification des besoins, ainsi qu'au choix des environnements matériels et logiciels adoptés pour l'architecture du système.
+    \item \textbf{Le Chapitre 3} illustre la phase de conception détaillée et la réalisation technique du projet, découpées selon des itérations (Sprints) agiles, allant du développement backend et web jusqu'à l'application mobile et l'intégration de l'Intelligence Artificielle.
+\end{itemize}
+Nous terminerons par une conclusion générale résumant les apports de ce travail et ouvrant sur des perspectives d'évolution futures.
+
+% ==========================================
+% CHAPITRE 1 : CADRE DU PROJET
+% ==========================================
+\chapter{Cadre du projet}
+
+\section*{Introduction}
+La réussite d'un projet informatique repose avant tout sur une compréhension claire de son environnement et des problèmes qu'il cherche à résoudre. Dans ce premier chapitre, nous définirons le contexte général lié à la transition énergétique. Ensuite, nous évaluerons les solutions existantes pour en dégager les limites, avant de détailler notre solution, EnerQR, ainsi que la méthodologie de gestion de projet choisie pour la mener à bien.
+
+\section{Cadre général}
+\subsection{Contexte du projet — La transition énergétique et les pompes à chaleur}
+Au cours des dernières décennies, le changement climatique a poussé la communauté internationale à engager une transition énergétique majeure. L'un des piliers de cette transition réside dans l'optimisation énergétique des bâtiments. C’est dans cette dynamique écologique que les pompes à chaleur (PAC) se sont imposées comme l'alternative numéro un aux systèmes de chauffage traditionnels (gaz, fioul). En exploitant les énergies renouvelables présentes dans l'air ou le sol, les PAC offrent un rendement exceptionnel. L'installation de ces équipements a donc connu une croissance exponentielle. Cependant, cette démocratisation s'accompagne de nouveaux défis techniques liés à la gestion intelligente et à la maintenance de ces équipements.
+
+\subsection{Problématique — Suivi des consommations, pannes et communication}
+Une pompe à chaleur est un système sensible dont les performances dépendent fortement de son entretien et de son adaptation climatique. Aujourd'hui, les utilisateurs finaux souffrent d'un manque de visibilité sur leur consommation réelle. Par ailleurs, lorsqu'une panne survient, le délai d'intervention est souvent long à cause d'une mauvaise communication entre le client et le technicien, aggravée par un manque de diagnostic préalable. Les techniciens, de leur côté, manquent d'outils centralisés pour anticiper ces pannes ou organiser efficacement leurs interventions.
+
+\section{Étude de l'existant}
+\subsection{Les solutions actuelles de suivi énergétique}
+Actuellement, les solutions se résument souvent aux thermostats intelligents classiques (comme Nest ou Netatmo) ou aux applications propriétaires fournies par les constructeurs de PAC. Ces outils permettent un réglage de base de la température et offrent des graphiques simplifiés de la consommation.
+
+\subsection{Limites de l'existant}
+Malgré leur utilité, ces solutions présentent plusieurs limites :
+\begin{itemize}
+    \item \textbf{Fermeture des écosystèmes :} Chaque marque possède son application, empêchant une gestion unifiée pour un gestionnaire de parc multimarque.
+    \item \textbf{Absence de maintenance prédictive :} Les pannes sont constatées une fois qu'elles se produisent, aucune Intelligence Artificielle n'analyse les baisses de rendement pour prévenir les défaillances.
+    \item \textbf{Rupture de communication :} Les plateformes existantes ne relient pas directement le client en détresse au technicien affecté à sa zone.
+\end{itemize}
+
+\section{Solution proposée : EnerQR}
+\subsection{Système intelligent multi-plateforme de gestion des PAC avec IA}
+Pour combler ces lacunes, nous avons conçu \textbf{EnerQR}, une plateforme intelligente décomposée en trois volets interactifs :
+\begin{itemize}
+    \item \textbf{Un Backend robuste} assurant la sécurité des données et hébergeant un modèle d'Intelligence Artificielle capable de prédire les consommations et de détecter les anomalies comportementales des pompes.
+    \item \textbf{Un Dashboard Web} destiné à l'administrateur pour lui offrir une vue globale sur le parc énergétique, les utilisateurs, et les alertes du réseau.
+    \item \textbf{Une Application Mobile} à double interface : l'une pour le client (suivi en temps réel, alertes, chatbot IA, factures) et l'autre pour le technicien (suivi des interventions, historique des garanties, détails techniques de la machine).
+\end{itemize}
+
+\section{Méthodologie de gestion de projet}
+\subsection{Choix méthodologique (Agile)}
+\subsubsection{Définition}
+Les méthodes Agiles sont des approches itératives et collaboratives de gestion de projet. Contrairement au modèle classique (en cascade), l'Agile place la flexibilité et la satisfaction du client au centre du processus, permettant d'adapter le produit aux changements de spécifications même en cours de développement.
+
+\subsubsection{Scrum — Avantages et processus}
+Parmi les méthodes agiles, notre choix s'est porté sur \textbf{Scrum}. Son processus repose sur des cycles courts appelés "Sprints" (généralement de 2 à 4 semaines), à la fin desquels une version fonctionnelle du logiciel est livrée.
+Les avantages de Scrum pour notre projet sont multiples : une réactivité face aux imprévus, une meilleure visibilité sur l'avancement, et une diminution des risques d'échec grâce à la validation continue.
+
+\subsubsection{UML — Unified Modeling Language}
+Afin d'accompagner l'approche Agile par une documentation claire et compréhensible, nous avons adopté \textbf{UML} comme langage de modélisation visuelle. Il nous a permis de standardiser la conception architecturale de notre système, de la spécification des cas d'utilisation jusqu'à la modélisation de la base de données.
+
+\section*{Conclusion}
+Ce chapitre nous a permis de contextualiser notre projet en définissant clairement la problématique liée à la gestion des pompes à chaleur. Face aux limites de l'existant, EnerQR se présente comme une solution complète et intelligente, portée par une méthodologie Agile rigoureuse. Dans le chapitre suivant, nous détaillerons les spécifications techniques et fonctionnelles requises pour concrétiser cette vision.
+
+% ==========================================
+% CHAPITRE 2 : ANALYSE ET SPÉCIFICATION DES BESOINS
+% ==========================================
+\chapter{Analyse et spécification des besoins}
+
+\section*{Introduction}
+La réussite du développement logiciel repose sur une analyse méticuleuse des besoins. Dans ce chapitre, nous identifierons l'ensemble des besoins fonctionnels et non fonctionnels du système EnerQR. Ensuite, nous présenterons l'organisation de notre travail sous Scrum, les environnements techniques choisis, et l'architecture globale qui sous-tend l'application.
+
+\section{Spécification des besoins}
+\subsection{Besoins fonctionnels}
+Les besoins fonctionnels décrivent les actions exactes que le système doit exécuter. Pour EnerQR, ils sont répartis selon les trois acteurs principaux :
+\begin{itemize}
+    \item \textbf{L'Administrateur :} Doit pouvoir gérer les utilisateurs (clients et techniciens), ajouter des nouvelles pompes à chaleur, assigner des techniciens à des pompes, gérer les garanties et visualiser les statistiques globales via des KPIs.
+    \item \textbf{Le Technicien :} Doit pouvoir consulter la liste des machines qui lui sont assignées, accéder aux détails techniques (numéro de série, zone climatique), recevoir les déclarations de pannes (anomalies) et changer le statut d'une intervention à "résolue".
+    \item \textbf{Le Client :} Doit pouvoir s'authentifier, consulter sa consommation énergétique, bénéficier de prédictions IA, déclarer un problème technique, télécharger ses factures d'économies en format PDF et interagir avec un Chatbot Assistant.
+\end{itemize}
+
+\subsection{Diagramme de cas d'utilisation global}
+Le diagramme de cas d'utilisation modélise les interactions entre les utilisateurs (Acteurs) et le système.
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.9\textwidth]{images/usecase_global.png}
+    \vspace{5cm} % Espace vide en attendant l'image
+    \caption{Diagramme de cas d'utilisation global du système EnerQR}
+    \label{fig:usecase}
+\end{figure}
+
+\subsection{Besoins non fonctionnels}
+Ces besoins garantissent la viabilité, la performance et l'expérience utilisateur du système :
+\begin{itemize}
+    \item \textbf{Sécurité :} L'authentification doit être protégée par le hachage des mots de passe et l'utilisation de tokens JWT (JSON Web Tokens). L'accès aux interfaces doit être strictement basé sur le rôle (RBAC).
+    \item \textbf{Ergonomie :} Les interfaces web et mobiles doivent respecter un design moderne, réactif et intuitif (utilisation du Glassmorphism, animations fluides).
+    \item \textbf{Disponibilité Multi-plateforme :} L'application mobile doit fonctionner de manière identique sur iOS et Android sans réécriture de code.
+\end{itemize}
+
+\section{Pilotage du projet avec Scrum}
+\subsection{Équipe et rôles}
+Dans le cadre de ce projet de fin d'études, nous avons endossé les multiples rôles définis par Scrum pour simuler un environnement professionnel de développement de logiciels :
+\begin{itemize}
+    \item \textbf{Product Owner :} Pour définir la vision globale du projet et prioriser les besoins (Product Backlog).
+    \item \textbf{Scrum Master :} Pour assurer le suivi méthodologique, éliminer les blocages techniques et garantir le rythme des Sprints.
+    \item \textbf{Équipe de développement :} Pour réaliser les tâches de conception, le codage frontend, backend et l'intégration de l'Intelligence Artificielle.
+\end{itemize}
+
+\subsection{Backlog du produit EnerQR}
+\subsubsection{Définition et structure}
+Le Product Backlog est le carnet de commandes du projet. Il liste les fonctionnalités attendues sous forme de "User Stories" (récits utilisateurs) priorisées selon leur valeur ajoutée. À titre d'exemple : "En tant qu'Admin, je veux créer un compte pour un technicien afin de lui assigner des machines". Les stories sont ensuite découpées en tâches techniques et estimées avant chaque début de Sprint.
+
+\section{Environnement de travail}
+\subsection{Environnement matériel}
+Le développement, l'entraînement des modèles d'intelligence artificielle et les tests croisés de l'application mobile ont été réalisés sur un ordinateur personnel doté de performances adéquates pour supporter la compilation lourde de Flutter et les calculs des bibliothèques Python.
+
+\subsection{Environnement logiciel}
+\subsubsection{Outils de modélisation}
+Nous avons utilisé \textbf{StarUML} pour concevoir rigoureusement nos diagrammes orientés objet, et \textbf{Figma} pour le maquettage des interfaces utilisateur (UI/UX) web et mobiles.
+
+\subsubsection{Outils de développement}
+\begin{itemize}
+    \item \textbf{VS Code} et \textbf{Android Studio} : Éditeurs de code de référence pour le développement web, backend et l'émulation mobile.
+    \item \textbf{FastAPI (Python)} : Choisi pour le Backend en raison de sa rapidité, de sa documentation générée automatiquement (Swagger) et de son intégration native et optimisée avec l'écosystème IA de Python.
+    \item \textbf{React.js} : Utilisé pour développer le Dashboard Administrateur web pour sa réactivité exceptionnelle et son approche modulaire par composants virtuels.
+    \item \textbf{Flutter / Dart} : Framework mobile cross-platform de Google permettant de compiler une seule base de code pour obtenir des applications natives sous Android et iOS.
+\end{itemize}
+
+\subsubsection{Intelligence Artificielle et base de données}
+\begin{itemize}
+    \item \textbf{Scikit-Learn} : La principale bibliothèque utilisée pour la création et l'entraînement des modèles de Machine Learning (régression pour la prédiction de consommation, et logique de classification pour la détection d'anomalies).
+    \item \textbf{SQLite / PostgreSQL} : SGBD relationnel robuste utilisé pour la persistance fiable et structurée des données des utilisateurs, des équipements (PAC) et de l'historique de maintenance.
+\end{itemize}
+
+\section{Architecture du système}
+\subsection{Architecture logicielle — Client-Serveur, API REST}
+EnerQR repose sur une architecture moderne de type Client-Serveur découplé. Le Backend expose une API RESTful sécurisée qui centralise toute la logique métier. Les clients lourds et légers (le Navigateur Web React et l'App Mobile Flutter) consomment ces API via des requêtes HTTP standards (GET, POST, PUT, DELETE) en échangeant de la donnée sous format JSON.
+
+\subsection{Intégration des modèles IA}
+Afin de ne pas surcharger le client mobile, les modèles IA, une fois entraînés localement, ont été exportés et hébergés directement sur le Backend FastAPI. Lorsqu'un client mobile ouvre son application, l'API interroge le modèle en temps réel avec les données du jour, calcule la prédiction instantanément, et renvoie la donnée mise en forme.
+
+\section*{Conclusion}
+Ce chapitre a posé des bases solides en clarifiant ce que le système EnerQR doit réaliser et de quelle manière il sera construit. L'étude approfondie des besoins, alliée à une sélection justifiée d'outils de pointe (FastAPI, React, Flutter, Scikit-Learn), nous a assuré une base technique robuste pour entamer sereinement la phase de développement et de réalisation détaillée dans le chapitre suivant.
+
+% ==========================================
+% CHAPITRE 3 : CONCEPTION ET RÉALISATION
+% ==========================================
+\chapter{Conception et Réalisation}
+
+\section*{Introduction}
+Après avoir rigoureusement défini l'architecture et les besoins du projet, nous abordons ici la phase la plus attendue : la conception détaillée et l'implémentation. Fidèles à la méthodologie Agile Scrum, nous avons scindé notre réalisation en deux Sprints majeurs. Le premier Sprint est consacré au cœur du système (Backend API et Portail Web Administrateur), tandis que le second se concentre sur l'interaction utilisateur finale (Application Mobile Client/Technicien) et l'intégration des fonctionnalités d'Intelligence Artificielle.
+
+\section{Sprint 1 — Backend API \& Plateforme Web Admin}
+Ce sprint pose les fondations du projet. Il permet à l'administrateur, qui est le chef d'orchestre du système, de configurer le parc, d'inscrire les acteurs et de préparer l'infrastructure logicielle pour les étapes suivantes.
+
+\subsection{Raffinement des cas d'utilisation du Sprint 1}
+\subsubsection{Authentification et gestion des rôles (JWT)}
+Chaque tentative de connexion vérifie l'identité de l'utilisateur et génère un jeton JWT (JSON Web Token) côté serveur, renvoyé au client. Ce jeton contient le rôle de l'utilisateur de manière chiffrée, déterminant les interfaces et actions (Client, Technicien, Admin) qui lui seront permises. Par exemple, un code secret spécifique est exigé pour les inscriptions Admin afin d'éviter toute usurpation.
+
+\subsubsection{Gérer le parc de pompes à chaleur (PAC)}
+L'administrateur a l'exclusivité et la possibilité de déclarer une nouvelle PAC dans le système en définissant son modèle exact, sa zone climatique d'installation (H1, H2, H3), sa date d'activation et son propriétaire. Ces données alimenteront ensuite les algorithmes de prédiction.
+
+\subsubsection{Gérer les techniciens et affectations}
+Une intervention de maintenance nécessite une organisation stricte. Ce cas d'utilisation permet à l'administrateur d'attribuer une machine signalée défectueuse (ou sous garantie nécessitant un contrôle) à un technicien spécifique, qui recevra l'information en temps réel sur son smartphone.
+
+\subsection{Diagrammes de séquence}
+Les diagrammes de séquence illustrent la chronologie temporelle des échanges de messages entre l'acteur (le point d'entrée), l'interface graphique (Frontend) et le serveur (Backend).
+
+\subsubsection{Diagramme de séquence — Authentification}
+Ce diagramme détaille la saisie des identifiants, la vérification en base de données de l'association mot de passe/hash, la génération du JWT en cas de succès, et la gestion des erreurs (identifiants incorrects).
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.8\textwidth]{images/seq_auth.png}
+    \vspace{4cm} % Espace vide
+    \caption{Diagramme de séquence de l'Authentification}
+    \label{fig:seq_auth}
+\end{figure}
+
+\subsubsection{Diagramme de séquence — Ajout d'une PAC}
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.8\textwidth]{images/seq_add_pac.png}
+    \vspace{4cm} % Espace vide
+    \caption{Diagramme de séquence : Processus d'ajout d'une pompe à chaleur}
+    \label{fig:seq_pac}
+\end{figure}
+
+\subsection{Modélisation de la base de données}
+\subsubsection{Diagramme de classes}
+Le diagramme de classes représente la structure statique de nos entités et la multiplicité de leurs relations. On y retrouve l'entité Utilisateur généralisée en Client et Technicien, l'entité Pompe reliée à ses Anomalies, à ses Garanties et à ses Factures.
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.9\textwidth]{images/class_diagram.png}
+    \vspace{6cm} % Espace vide
+    \caption{Diagramme de classes du système EnerQR}
+    \label{fig:class_diagram}
+\end{figure}
+
+\subsection{Implémentation et Tests}
+L'implémentation de ce premier sprint s'est matérialisée visuellement par la création du Dashboard Admin en React.js. L'interface, conçue avec un design épuré, affiche les "Key Performance Indicators" (KPIs) calculés dynamiquement par le Backend. Elle inclut la liste paginée des utilisateurs, la gestion des QR codes liés aux pompes et la supervision des anomalies en cours.
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.8\textwidth]{images/dashboard_admin.png}
+    \vspace{4cm} % Espace vide
+    \caption{Interface React : Tableau de bord Administrateur Web}
+    \label{fig:ui_admin}
+\end{figure}
+
+
+\section{Sprint 2 — Application Mobile Flutter \& Intégration IA}
+Le second sprint de notre cycle de développement s'est focalisé sur la mobilité et l'intelligence. L'objectif était d'offrir une expérience utilisateur fluide et haut de gamme aux clients et techniciens directement sur leur smartphone, là où ils en ont le plus besoin.
+
+\subsection{Raffinement des cas d'utilisation du Sprint 2}
+\subsubsection{Consulter les statistiques et prédictions IA (Client)}
+Une fois authentifié, le client visualise sur sa page d'accueil un résumé esthétique de sa pompe. En arrière-plan, l'application mobile sollicite le modèle de régression IA hébergé sur le backend pour estimer les économies annuelles et l'alerter d'une éventuelle anomalie imminente basée sur les écarts de consommation calculés.
+
+\subsubsection{Interagir avec le Chatbot Assistant (Client)}
+Afin d'améliorer le service client et de limiter les interventions techniques non justifiées, nous avons intégré un Chatbot conversationnel directement dans l'interface de l'application. L'utilisateur peut y formuler ses requêtes en langage naturel et obtenir un diagnostic premier niveau.
+
+\subsubsection{Suivi et résolution des anomalies (Technicien)}
+Le technicien accède à un tableau de bord listant ses missions de maintenance (anomalies actives). L'interface mobile lui permet de consulter l'historique de la machine, de se rendre sur site, et de changer l'état du ticket en "Résolu" une fois la réparation effectuée.
+
+\subsubsection{Génération et téléchargement de facture PDF}
+Pour offrir un service complet et une trace administrative claire, le client dispose d'un bouton lui permettant de demander la génération instantanée de sa facture d'économie ou de contrat en format PDF téléchargeable sur son téléphone.
+
+\subsection{Modélisation}
+\subsubsection{Diagrammes de séquence — Détection anomalie IA et Résolution}
+Ce diagramme complexe montre comment le système IA surveille les données, génère une alerte d'anomalie enregistrée en base de données, notifie le technicien de l'assignation, et clôture l'alerte à la suite de l'action de résolution du technicien sur son téléphone mobile.
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.8\textwidth]{images/seq_anomalie.png}
+    \vspace{5cm} % Espace vide
+    \caption{Diagramme de séquence : Cycle de vie d'une anomalie IA (Détection et Résolution)}
+    \label{fig:seq_anomalie}
+\end{figure}
+
+\subsection{Diagramme de déploiement global}
+Ce diagramme illustre l'architecture matérielle finale, décrivant la répartition physique des nœuds et des composants logiciels : le Serveur Cloud hébergeant l'API FastAPI et la Base de données PostgreSQL, communicant via HTTPS avec le PC de l'Administrateur et les Smartphones des clients/techniciens.
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LA LIGNE CI-DESSOUS PAR TON IMAGE
+    % \includegraphics[width=0.8\textwidth]{images/deployment_diagram.png}
+    \vspace{4cm} % Espace vide
+    \caption{Diagramme de déploiement réseau de l'écosystème EnerQR}
+    \label{fig:deployment}
+\end{figure}
+
+\subsection{Implémentation et Tests}
+L'application mobile a été codée en Dart à l'aide de Flutter, en adoptant une architecture modulaire et en respectant rigoureusement le "Design System" propre à EnerQR (Glassmorphism, animations fluides, typographie moderne et charte de couleurs précise). L'un des plus grands défis de cette implémentation fut la création d'un "Routing" intelligent via un fichier \texttt{unified\_dashboard.dart}, capable de modifier complètement l'interface graphique selon le rôle de l'utilisateur connecté sans rechargement lourd.
+
+\begin{figure}[H]
+    \centering
+    % REMPLACER LES LIGNES CI-DESSOUS PAR TES IMAGES (Ou en mettre plusieurs)
+    % \includegraphics[width=0.45\textwidth]{images/mobile_client.png}
+    % \hfill
+    % \includegraphics[width=0.45\textwidth]{images/mobile_tech.png}
+    \vspace{6cm} % Espace vide
+    \caption{Interfaces de l'application Flutter : Vues unifiées du Client, du Technicien et du Chatbot}
+    \label{fig:ui_mobile}
+\end{figure}
+
+\section*{Conclusion}
+Ce troisième chapitre a mis en lumière la transformation de nos spécifications fonctionnelles et théoriques en une réalité logicielle palpable et fonctionnelle. Grâce à l'approche par itérations Sprints, nous avons pu développer de manière incrémentale un Backend solide, un tableau de bord Web de supervision performant et une application mobile riche intégrant de l'intelligence artificielle pour simplifier la vie de tous les acteurs du processus de transition énergétique.
+
+% ==========================================
+% CONCLUSION GÉNÉRALE ET PERSPECTIVES
+% ==========================================
+\chapter*{Conclusion générale et perspectives}
+\addcontentsline{toc}{chapter}{Conclusion générale et perspectives}
+
+L'accomplissement du projet \textbf{EnerQR} a représenté un défi technique, organisationnel et intellectuel particulièrement enrichissant. Partant du constat que la gestion des pompes à chaleur restait une tâche complexe, opaque pour le consommateur final et fragmentée pour les gestionnaires professionnels, nous sommes parvenus à concevoir, de bout en bout, un écosystème numérique intelligent et centralisé.
+
+Tout au long de ce travail, l'application de la méthodologie Agile Scrum nous a permis de piloter le développement étape par étape, en nous adaptant rapidement aux nouveaux besoins et en maintenant un cap clair. De la modélisation UML rigoureuse à l'implémentation d'une API FastAPI performante, en passant par le développement front-end web avec React.js et la conception d'une application mobile unifiée avec Flutter, ce projet nous a poussé à maîtriser un ensemble de technologies logicielles modernes et très prisées sur le marché actuel.
+
+Plus qu'une simple application classique de gestion de données (CRUD), la véritable valeur ajoutée d'EnerQR réside dans l'intégration de modèles de Machine Learning. L'Intelligence Artificielle intégrée à notre plateforme permet d'opérer un passage vital de la maintenance "curative" (attendre la panne pour réagir) vers une maintenance "prédictive". Cette innovation est la clé pour garantir la longévité des installations écologiques, réduire drastiquement les coûts des interventions pour les professionnels et optimiser le confort des clients.
+
+Néanmoins, tout projet technologique ambitieux se doit de regarder vers l'avenir. Le système EnerQR possède encore un vaste potentiel d'évolution. Parmi les perspectives d'amélioration futures, nous envisageons :
+\begin{itemize}
+    \item \textbf{L'intégration directe de capteurs IoT (Internet of Things) :} L'ajout de sondes matérielles (connectées via MQTT ou LoRaWAN) directement sur les pompes physiques permettrait de remonter des données de température et de pression instantanées à la milliseconde près, remplaçant ainsi toute estimation logicielle par une observation physique continue.
+    \item \textbf{L'extension aux panneaux solaires et à la domotique :} Faire évoluer l'application pour qu'elle devienne un véritable "Hub énergétique" capable de croiser la production solaire d'une maison avec la consommation de sa pompe à chaleur.
+    \item \textbf{L'optimisation des modèles d'IA par le Deep Learning :} Intégrer des algorithmes de séries temporelles avancées (comme les réseaux de neurones LSTM) pour affiner la détection d'anomalies en se basant sur des années d'historique météorologique et comportemental global.
+\end{itemize}
+
+En conclusion, la conception de la plateforme EnerQR vient confirmer une conviction forte : la digitalisation, couplée à l'Intelligence Artificielle, sont aujourd'hui des leviers technologiques incontournables et indispensables pour réussir la transition énergétique et bâtir un avenir plus transparent et durable.
+
+% ==========================================
+% WEBOGRAPHIE
+% ==========================================
+\chapter*{Webographie}
+\addcontentsline{toc}{chapter}{Webographie}
+\begin{enumerate}
+    \item \textbf{FastAPI} - Framework Web moderne et rapide pour la création d'APIs avec Python. Disponible sur : \url{https://fastapi.tiangolo.com/}
+    \item \textbf{Flutter Framework} - Toolkit de Google pour la conception d'applications multi-plateformes natively-compiled. Disponible sur : \url{https://flutter.dev/}
+    \item \textbf{React.js} - Bibliothèque JavaScript libre pour la création d'interfaces utilisateurs. Disponible sur : \url{https://reactjs.org/}
+    \item \textbf{Scikit-Learn} - Outils open-source de Machine Learning et d'analyse prédictive de données en Python. Disponible sur : \url{https://scikit-learn.org/stable/}
+    \item \textbf{StarUML} - Outil de modélisation logiciel pour l'UML (Unified Modeling Language). Disponible sur : \url{https://staruml.io/}
+    \item \textbf{JSON Web Tokens (JWT)} - Standard industriel ouvert pour la sécurisation des échanges web. Disponible sur : \url{https://jwt.io/}
+\end{enumerate}
+
+\end{document}

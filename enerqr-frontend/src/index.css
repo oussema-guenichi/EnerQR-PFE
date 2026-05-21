@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --primary-color: #0b2545;
+  --secondary-color: #13315c;
+  --accent-color: #8da9c4;
+  --highlight-color: #26C485; /* Energi green */
+  --highlight-glow: rgba(38, 196, 133, 0.4);
+  
+  --bg-color: #f7f9fa;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  
+  --text-main: #131515;
+  --text-muted: #5c6b73;
+  
+  --danger: #ef476f;
+  --warning: #ffd166;
+  
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 8px;
+  
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+body.dark-theme {
+  --bg-color: #0d1321;
+  --card-bg: rgba(17, 25, 40, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  
+  --text-main: #f0f4f8;
+  --text-muted: #9fb3c8;
+  
+  --primary-color: #e2e8f0;
+  --secondary-color: #cbd5e1;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Background gradient blobs */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10vw;
+  left: -10vw;
+  width: 40vw;
+  height: 40vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--highlight-glow) 0%, rgba(255,255,255,0) 70%);
+  z-index: -1;
+  filter: blur(60px);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -10vw;
+  right: -10vw;
+  width: 30vw;
+  height: 30vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(141, 169, 196, 0.2) 0%, rgba(255,255,255,0) 70%);
+  z-index: -1;
+  filter: blur(50px);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: var(--highlight-color);
+  transition: var(--transition);
+}
+a:hover {
+  filter: brightness(1.2);
+}
+
+button {
+  font-family: var(--font-heading);
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: var(--transition);
+}
+
+/* Base App Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  padding: 2rem;
+  transition: var(--transition);
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+  background: var(--highlight-color);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px 0 var(--highlight-glow);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 var(--highlight-glow);
+  filter: brightness(1.1);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Checkbox Styling */
+.checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.checkbox-wrapper input[type="checkbox"] {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--accent-color);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.checkbox-wrapper input[type="checkbox"]:checked {
+  background: var(--highlight-color);
+  border-color: var(--highlight-color);
+}
+.checkbox-wrapper input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  width: 4px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.checkbox-wrapper label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.checkbox-wrapper label span {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+.delay-1 { animation: fadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.1s; opacity: 0; }
+.delay-2 { animation: fadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.2s; opacity: 0; }
+.delay-3 { animation: fadeIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.3s; opacity: 0; }
+
+/* Robot Assistant */
+@keyframes floatRobot {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.robot-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 130px;
+  height: 130px;
+  z-index: 1000;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.robot-assistant {
+  width: 100%;
+  height: auto;
+  animation: floatRobot 4s ease-in-out infinite;
+  filter: drop-shadow(0 15px 20px rgba(38,196,133,0.3));
+  transition: transform 0.3s ease;
+  z-index: 2;
+  border-radius: 50%;
+}
+
+.robot-assistant:hover {
+  transform: scale(1.1) translateY(-10px);
+  filter: drop-shadow(0 20px 30px rgba(38,196,133,0.6));
+}
+
+.robot-glow {
+  position: absolute;
+  bottom: -10px;
+  width: 60px;
+  height: 10px;
+  background: var(--highlight-color);
+  border-radius: 50%;
+  filter: blur(15px);
+  opacity: 0.5;
+  animation: pulseGlow 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 0.5; }
+}
+
